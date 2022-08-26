@@ -1,0 +1,243 @@
+openapi: 3.0.2
+info:
+  version: '1.0.0'
+  title: 'Wordhunt admin api'
+  license:
+    name: MIT
+servers:
+  - url: 'https://admin-api-wordhunt.loc'
+paths:
+  /words:
+    get:
+      summary: 'List of words'
+      responses:
+        '200':
+          description: word response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WordResponse'
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+    post:
+      summary: 'Create word'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WordRequest'
+      responses:
+        '201':
+          description: Example
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WordResponse'
+  /words/{id}:
+    get:
+      summary: 'View word'
+      parameters:
+        - name: id
+          in: path
+          description: Word id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Example
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WordResponse'
+    put:
+      summary: 'Update word'
+      parameters:
+        - name: id
+          in: path
+          description: Word id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WordRequest'
+      responses:
+        '201':
+          description: Example
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WordResponse'
+    delete:
+      summary: 'Delete word'
+      parameters:
+        - name: id
+          in: path
+          description: Word id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Example
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+  /clients:
+    get:
+      summary: 'List of clients'
+      responses:
+        '200':
+          description: client response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ClientResponse'
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+  /clients/{id}:
+    get:
+      summary: 'View client'
+      parameters:
+        - name: id
+          in: path
+          description: Word id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Example
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ClientResponse'
+components:
+  schemas:
+    WordResponse:
+      allOf:
+        - $ref: '#/components/schemas/WordRequest'
+        - type: object
+          properties:
+            id:
+              type: string
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+    WordRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        pinin:
+          type: string
+        score:
+          type: number
+        translations:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              part_of_speech:
+                type: string
+              description:
+                type: string
+              tag:
+                type: string
+              score:
+                type: number
+        examples:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              translation:
+                type: string
+              score:
+                type: number  
+
+    ClientResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        word_statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              level:
+                type: number
+              count:
+                type: number
+        last_active_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Meta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        from:
+          type: integer
+        last_page:
+          type: integer
+        to:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+          
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+security:
+  - BasicAuth: []
