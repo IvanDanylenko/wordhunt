@@ -13,6 +13,7 @@ Table words {
 
 Table translations {
   id uuid
+  word_id uuid
   name varchar
   part_of_speech varchar
   score numeric
@@ -32,10 +33,6 @@ Table examples {
   updated_at timestamp
 }
 
-Table translation_word {
-  translation_id uuid
-  word_id uuid
-}
 
 Table clients {
   id uuid
@@ -67,13 +64,10 @@ Table admins {
   updated_at timestamp
 }
 
-
-Ref: "words"."id" < "translation_word"."word_id"
-
-Ref: "translations"."id" < "translation_word"."translation_id"
-
 Ref: "words"."id" < "client_word"."word_id"
 
 Ref: "clients"."id" < "client_word"."client_id"
 
 Ref: "examples"."word_id" < "words"."id"
+
+Ref: "translations"."word_id" < "words"."id"

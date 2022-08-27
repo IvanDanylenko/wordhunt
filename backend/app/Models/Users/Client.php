@@ -2,6 +2,8 @@
 
 namespace App\Models\Users;
 
+use App\Models\Word;
+
 class Client extends User
 {
     /**
@@ -12,4 +14,9 @@ class Client extends User
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function words()
+    {
+        return $this->belongsToMany(Word::class)->withPivot(['level', 'status', 'word_increased_level_at'])->withTimestamps();
+    }
 }
