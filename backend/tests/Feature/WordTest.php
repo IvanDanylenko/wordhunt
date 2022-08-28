@@ -13,11 +13,6 @@ class WordTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     public function testCRUDForAdmin()
     {
         Admin::factory()->create();

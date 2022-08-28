@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\WordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,4 +32,6 @@ Route::middleware(['auth:admin'])->group(function () {
     })->name('me');
 
     Route::apiResource('/words', WordController::class);
+
+    Route::apiResource('/clients', ClientController::class)->only('index', 'show');
 });
