@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Client\AuthController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +26,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/auth/refresh-token', [AuthController::class, 'refreshToken'])->name('refreshToken');
 
 Route::middleware(['auth:client'])->group(function () {
-    Route::get('/me', function (Request $request) {
-        return $request->user();
-    })->name('me');
+    Route::get('/me', [AuthController::class, 'me'])->name('me');
 
 });
 

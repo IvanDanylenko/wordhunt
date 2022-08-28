@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Client\MeResource;
 use App\Models\Users\Client;
 use App\Traits\AuthTrait;
 use Illuminate\Http\JsonResponse;
@@ -32,5 +33,12 @@ class AuthController extends Controller
         $client->save();
 
         return $this->respondWithToken($client->generateAccessToken(), $client->generateRefreshToken());
+    }
+
+    public function me()
+    {
+        // disable wrapping of user attributes in data key
+        MeResource::withoutWrapping();
+        return new MeResource(auth()->user());
     }
 }
