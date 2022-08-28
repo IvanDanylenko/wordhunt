@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Enums\WordStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Client\ChangeStatusWordRequest;
 use App\Http\Resources\Client\WordResource;
 use App\Models\Users\Client;
 use App\Models\Word;
@@ -59,6 +60,51 @@ class WordController extends Controller
             'status' => $newStatus,
             'word_increased_level_at' => now(),
         ]);
+
+        return ['status' => true];
+    }
+
+    public function changeStatusNew(ChangeStatusWordRequest $request)
+    {
+        /** @var Client */
+        $client = auth()->user();
+        $ids = $request->only('ids');
+
+        $attributes = ['level' => 0, 'status' => WordStatus::New->value];
+
+        foreach ($ids as $id) {
+            $client->words()->updateExistingPivot($id, $attributes) ?? $client->words()->attach($id, $attributes);
+        }
+
+        return ['status' => true];
+    }
+
+    public function changeStatusInProgress(ChangeStatusWordRequest $request)
+    {
+        /** @var Client */
+        $client = auth()->user();
+        $ids = $request->only('ids');
+
+        $attributes = ['status' => WordStatus::InProgress->value];
+
+        foreach ($ids as $id) {
+            $client->words()->updateExistingPivot($id, $attributes);
+        }
+
+        return ['status' => true];
+    }
+
+    public function changeStatusSkipped(ChangeStatusWordRequest $request)
+    {
+        /** @var Client */
+        $client = auth()->user();
+        $ids = $request->only('ids');
+
+        $attributes = ['status' => WordStatus::Skipped->value];
+
+        foreach ($ids as $id) {
+            $client->words()->updateExistingPivot($id, $attributes) ?? $client->words()->attach($id, $attributes);
+        }
 
         return ['status' => true];
     }

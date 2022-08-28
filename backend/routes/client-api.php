@@ -32,6 +32,9 @@ Route::middleware(['auth:client'])->group(function () {
     Route::get('/words', [WordController::class, 'index'])->name('words.index');
     Route::get('/words/{id}', [WordController::class, 'show'])->name('words.show');
     Route::post('/words/{id}/increase-level', [WordController::class, 'increaseLevel'])->name('words.increaseLevel');
+    Route::post('/words/change-status/new', [WordController::class, 'changeStatusNew'])->name('words.changeStatusNew');
+    Route::post('/words/change-status/in-progress', [WordController::class, 'changeStatusInProgress'])->name('words.changeStatusInProgress');
+    Route::post('/words/change-status/skipped', [WordController::class, 'changeStatusSkipped'])->name('words.changeStatusSkipped');
 });
 
 // TODO: Implement password management endpoints
