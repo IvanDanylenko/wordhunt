@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Client\AuthController;
+use App\Http\Controllers\Client\WordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,8 @@ Route::post('/auth/refresh-token', [AuthController::class, 'refreshToken'])->nam
 Route::middleware(['auth:client'])->group(function () {
     Route::get('/me', [AuthController::class, 'me'])->name('me');
 
+    Route::get('/words', [WordController::class, 'index'])->name('words.index');
+    Route::get('/words/{id}', [WordController::class, 'show'])->name('words.show');
 });
 
 // TODO: Implement password management endpoints
