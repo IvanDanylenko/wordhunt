@@ -163,6 +163,15 @@ components:
           type: string
         pinin:
           type: string
+        audio:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              src:
+                type: string
         score:
           type: number
         translations:

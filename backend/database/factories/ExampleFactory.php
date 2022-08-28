@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Word;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +17,6 @@ class ExampleFactory extends Factory
     public function definition()
     {
         return [
-            'word_id' => Word::factory(),
             'name' => fake()->text(),
             'translation' => fake()->text(),
             'score' => fake()->numberBetween(0, 255),

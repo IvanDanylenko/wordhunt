@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\PartOfSpeech;
 use App\Models\Translation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +20,7 @@ class TranslationFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'part_of_speech' => fake()->randomElement(Translation::getPartsOfSpeech()),
+            'part_of_speech' => fake()->randomElement(PartOfSpeech::values()),
             'score' => fake()->numberBetween(0, 255),
             'description' => fake()->text(),
             'tag' => fake()->word(),

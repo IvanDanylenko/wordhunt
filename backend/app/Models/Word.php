@@ -7,22 +7,11 @@ use App\Models\Users\Client;
 
 class Word extends Model
 {
-    const STATUS_NEW = 'new';
-    const STATUS_PAUSED = 'paused';
-    const STATUS_IN_PROGRESS = 'in_progress';
-    const STATUS_LEARNED = 'learned';
-    const STATUS_SKIPPED = 'skipped';
-
-    public static function getStatuses(): array
-    {
-        return [
-            self::STATUS_NEW,
-            self::STATUS_PAUSED,
-            self::STATUS_IN_PROGRESS,
-            self::STATUS_LEARNED,
-            self::STATUS_SKIPPED,
-        ];
-    }
+    protected $fillable = [
+        'name',
+        'pinin',
+        'score',
+    ];
 
     public function clients()
     {
