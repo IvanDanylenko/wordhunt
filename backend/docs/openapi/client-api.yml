@@ -1,0 +1,252 @@
+openapi: 3.0.2
+info:
+  version: '1.0.0'
+  title: 'Wordhunt client api'
+  license:
+    name: MIT
+servers:
+  - url: 'https://client-api-wordhunt.loc'
+paths:
+  /me:
+    get:
+      summary: 'Me response'
+      responses:
+        '200':
+          description: me response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeResponse'
+  /words:
+    get:
+      summary: 'List of words'
+      parameters:
+        - name: status
+          in: query
+          description: Filter by word status (new | paused | in_progress | learned | skipped)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: words response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WordResponse'
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+  /words/{id}:
+    get:
+      summary: 'Single word'
+      parameters:
+        - name: id
+          in: path
+          description: Word id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: words response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WordResponse'
+  /words/{id}/increase-level:
+    post:
+      summary: 'Increase word level'
+      parameters:
+        - name: id
+          in: path
+          description: Word id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ok response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+  /words/change-status/new:
+    post:
+      summary: 'Add words to staging area'
+      parameters:
+        - name: ids
+          in: query
+          description: Word ids
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: ok response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+  /words/change-status/in-progress:
+    post:
+      summary: 'Add words to exercises'
+      parameters:
+        - name: ids
+          in: query
+          description: Word ids
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: ok response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+  /words/change-status/skipped:
+    post:
+      summary: 'Add words to skipped'
+      parameters:
+        - name: ids
+          in: query
+          description: Word ids
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: ok response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+components:
+  schemas:
+    MeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        word_statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              level:
+                type: number
+              count:
+                type: number
+    WordResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        pinin:
+          type: string
+        status:
+          type: string
+        audio:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              src:
+                type: string
+        translations:
+          type: object
+          properties:
+            nouns:
+              $ref: '#/components/schemas/Translation'
+            pronouns:
+              $ref: '#/components/schemas/Translation'
+            verbs:
+              $ref: '#/components/schemas/Translation'
+            auxiliary_verbs:
+              $ref: '#/components/schemas/Translation'
+            adjectives:
+              $ref: '#/components/schemas/Translation'
+            adverbs:
+              $ref: '#/components/schemas/Translation'
+            number_words:
+              $ref: '#/components/schemas/Translation'
+            measure_words:
+              $ref: '#/components/schemas/Translation'
+            interjections:
+              $ref: '#/components/schemas/Translation'
+            onomatopoeias:
+              $ref: '#/components/schemas/Translation'
+            conjunctions:
+              $ref: '#/components/schemas/Translation'
+            prepositions:
+              $ref: '#/components/schemas/Translation'
+            particles:
+              $ref: '#/components/schemas/Translation'
+    Translation:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          description:
+            type: string
+          tag:
+            type: string
+    Meta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        from:
+          type: integer
+        last_page:
+          type: integer
+        to:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+          
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+security:
+  - BasicAuth: []

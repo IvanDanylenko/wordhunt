@@ -1,0 +1,73 @@
+// Graphic interface is available here
+// @link https://dbdiagram.io/d/6307de0ef1a9b01b0fe5f151
+
+// Creating tables
+Table words {
+  id uuid
+  name varchar
+  pinin varchar
+  score numeric
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table translations {
+  id uuid
+  word_id uuid
+  name varchar
+  part_of_speech varchar
+  score numeric
+  description varchar
+  tag varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table examples {
+  id uuid
+  word_id uuid
+  name varchar
+  translation varchar
+  score numeric
+  created_at timestamp
+  updated_at timestamp
+}
+
+
+Table clients {
+  id uuid
+  name varchar
+  email varchar
+  password varchar
+  email_verified_at timestamp
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table client_word {
+  client_id uuid
+  word_id uuid
+  level numeric
+  status varchar
+  word_increased_level_at timestamp
+  created_at timestamp
+  updated_at timestamp
+}
+
+
+Table admins {
+  id uuid
+  name varchar
+  email varchar
+  password varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Ref: "words"."id" < "client_word"."word_id"
+
+Ref: "clients"."id" < "client_word"."client_id"
+
+Ref: "examples"."word_id" < "words"."id"
+
+Ref: "translations"."word_id" < "words"."id"
