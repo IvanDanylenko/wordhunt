@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@wordhunt/admin-core": ["libs/admin-core/src/index.ts"]
+      "@wordhunt/admin-core": ["libs/admin-core/src"],
+      "@wordhunt/admin-core/*": ["libs/admin-core/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
