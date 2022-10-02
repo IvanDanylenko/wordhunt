@@ -8,6 +8,7 @@ use App\Http\Requests\Client\ChangeStatusWordRequest;
 use App\Http\Resources\Client\WordResource;
 use App\Models\Users\Client;
 use App\Models\Word;
+use Illuminate\Http\Request;
 
 class WordController extends Controller
 {
@@ -16,9 +17,16 @@ class WordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $query = Word::with('translations', 'examples');
+        $filter = $request->input('filter');
+        if ($filter['status']) {
+            /** @var Client */
+            $client = auth()->user();
+            $query = $client->words()->wherePivot('status', $filter['status']);
+        } else {
+            $query = Word::with('translations', 'examples');
+        }
         return WordResource::collection($query->paginate(request('per_page')));
     }
 
