@@ -16,7 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@wordhunt/admin-core": ["libs/admin-core/src"],
-      "@wordhunt/admin-core/*": ["libs/admin-core/src/*"]
+      "@wordhunt/admin-core/*": ["libs/admin-core/src/*"],
+      "@wordhunt/next-core": ["libs/next-core/src"],
+      "@wordhunt/next-core/*": ["libs/next-core/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
