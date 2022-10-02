@@ -18,6 +18,6 @@ class ClientSeeder extends Seeder
     {
         $words = Word::get();
 
-        Client::factory(5)->hasAttached($words, ['level' => 0, 'status' => WordStatus::New->value])->create();
+        Client::factory(5)->hasAttached($words, ['level' => 0, 'status' => WordStatus::NewWord->value])->create();
     }
 }

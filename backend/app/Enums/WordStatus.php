@@ -3,7 +3,8 @@
 namespace App\Enums;
 
 enum WordStatus: string {
-    case New = 'new';
+    // New can't be used as parameter
+    case NewWord = 'new';
     case Paused = 'paused';
     case InProgress = 'in_progress';
     case Learned = 'learned';

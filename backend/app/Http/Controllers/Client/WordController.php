@@ -68,12 +68,13 @@ class WordController extends Controller
     {
         /** @var Client */
         $client = auth()->user();
-        $ids = $request->only('ids');
+        $ids = $request->input('ids');
 
-        $attributes = ['level' => 0, 'status' => WordStatus::New->value];
+        $attributes = ['level' => 0, 'status' => WordStatus::NewWord->value];
 
         foreach ($ids as $id) {
-            $client->words()->updateExistingPivot($id, $attributes) ?? $client->words()->attach($id, $attributes);
+            $isRelationExist = $client->words()->find($id);
+            $isRelationExist ? $client->words()->updateExistingPivot($id, $attributes) : $client->words()->attach($id, $attributes);
         }
 
         return ['status' => true];
@@ -83,7 +84,7 @@ class WordController extends Controller
     {
         /** @var Client */
         $client = auth()->user();
-        $ids = $request->only('ids');
+        $ids = $request->input('ids');
 
         $attributes = ['status' => WordStatus::InProgress->value];
 
@@ -98,12 +99,13 @@ class WordController extends Controller
     {
         /** @var Client */
         $client = auth()->user();
-        $ids = $request->only('ids');
+        $ids = $request->input('ids');
 
         $attributes = ['status' => WordStatus::Skipped->value];
 
         foreach ($ids as $id) {
-            $client->words()->updateExistingPivot($id, $attributes) ?? $client->words()->attach($id, $attributes);
+            $isRelationExist = $client->words()->find($id);
+            $isRelationExist ? $client->words()->updateExistingPivot($id, $attributes) : $client->words()->attach($id, array_merge($attributes, ['level' => 0]));
         }
 
         return ['status' => true];
