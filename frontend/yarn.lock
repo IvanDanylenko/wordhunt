@@ -11445,7 +11445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-query@npm:^3.32.1":
+"react-query@npm:^3.32.1, react-query@npm:^3.39.2":
   version: 3.39.2
   resolution: "react-query@npm:3.39.2"
   dependencies:
@@ -13874,6 +13874,7 @@ __metadata:
     react: 18.2.0
     react-admin: ^4.4.0
     react-dom: 18.2.0
+    react-query: ^3.39.2
     react-test-renderer: 18.2.0
     regenerator-runtime: 0.13.7
     ts-jest: 28.0.5

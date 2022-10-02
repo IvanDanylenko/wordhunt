@@ -17,7 +17,6 @@ class WordResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'pinin' => $this->pinin,
             'score' => $this->score,
             'translations' => TranslationResource::collection($this->whenLoaded('translations')),
             'examples' => ExampleResource::collection($this->whenLoaded('examples')),

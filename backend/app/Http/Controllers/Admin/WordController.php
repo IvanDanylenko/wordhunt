@@ -33,7 +33,7 @@ class WordController extends Controller
     public function store(StoreWordRequest $request)
     {
         DB::beginTransaction();
-        $word = new Word($request->only('name', 'pinin', 'score'));
+        $word = new Word($request->only('name', 'score'));
         $word->save();
 
         $word->translations()->createMany($request->translations);
@@ -72,13 +72,11 @@ class WordController extends Controller
         DB::beginTransaction();
 
         $word = Word::find($id);
-        $word->update($request->only('name', 'pinin', 'score'));
+        $word->update($request->only('name', 'score'));
 
         // Delete from database previous translations and examples
         Translation::destroy(array_column($word->translations->all(), 'id'));
         Example::destroy(array_column($word->examples->all(), 'id'));
-
-        $word22 = Word::with('translations')->find($id)->toArray();
 
         $word->translations()->createMany($request->translations);
 
@@ -111,5 +109,11 @@ class WordController extends Controller
         DB::commit();
 
         return response()->json(['status' => true]);
+    }
+
+    public function getSmallestScore()
+    {
+        $word = Word::orderBy('score')->first();
+        return response()->json(['smallest_score' => $word->score]);
     }
 }

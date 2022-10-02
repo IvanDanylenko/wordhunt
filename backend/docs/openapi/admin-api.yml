@@ -161,8 +161,6 @@ components:
       properties:
         name:
           type: string
-        pinin:
-          type: string
         audio:
           type: array
           items:
@@ -179,6 +177,8 @@ components:
           items:
             type: object
             properties:
+              word_transcription:
+                type: string
               name:
                 type: string
               part_of_speech:

@@ -3,6 +3,7 @@ import {
   ChipField,
   Datagrid,
   DateField,
+  EditButton,
   List,
   NumberField,
   SingleFieldList,
@@ -13,22 +14,21 @@ export const WordList = () => {
   return (
     <List>
       <Datagrid>
-        <TextField source="id" />
         <TextField source="name" />
-        <TextField source="pinin" />
         <NumberField source="score" />
         <ArrayField source="translations">
-          <SingleFieldList>
-            <ChipField source="id" />
+          <SingleFieldList linkType={false}>
+            <TextField source="name" sx={{ maxWidth: 200 }} />
           </SingleFieldList>
         </ArrayField>
         <ArrayField source="examples">
-          <SingleFieldList>
-            <ChipField source="id" />
+          <SingleFieldList linkType={false}>
+            <TextField source="name" sx={{ maxWidth: 100 }} />
           </SingleFieldList>
         </ArrayField>
         <DateField source="created_at" />
         <DateField source="updated_at" />
+        <EditButton />
       </Datagrid>
     </List>
   );
