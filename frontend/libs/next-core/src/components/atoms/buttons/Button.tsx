@@ -1,15 +1,30 @@
 import { FC } from 'react';
-import MuiButton, { ButtonProps as MuiButtonProps } from '@mui/material/Button';
+import {
+  Button as MuiButton,
+  ButtonProps as MuiButtonProps,
+  CircularProgress,
+} from '@mui/material';
 import { NextLink, NextLinkProps } from '../links';
 
-export type ButtonProps = MuiButtonProps & Partial<NextLinkProps>;
+export interface ButtonProps
+  extends MuiButtonProps,
+    Omit<NextLinkProps, 'href' | 'onTouchStart' | 'onClick' | 'onMouseEnter'> {
+  loading?: boolean;
+}
 
 export const Button: FC<ButtonProps> = (props) => {
-  const { children, ...rest } = props;
+  const { children, variant = 'contained', loading, disabled, ...rest } = props;
 
   return (
-    <MuiButton variant="contained" LinkComponent={NextLink} {...rest}>
-      {children}
+    <MuiButton variant={variant} disabled={loading || disabled} LinkComponent={NextLink} {...rest}>
+      {loading ? (
+        <CircularProgress
+          sx={{ color: variant === 'contained' ? 'common.white' : 'text.secondary' }}
+          size={20}
+        />
+      ) : (
+        children
+      )}
     </MuiButton>
   );
 };

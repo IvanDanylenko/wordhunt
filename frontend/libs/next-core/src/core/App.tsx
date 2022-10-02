@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { createEmotionCache } from '../theme';
 import { ThemeProvider } from '../providers';
+import { NotificationContextProvider } from '../contexts';
+import { Notification } from '../components';
 
 interface AppProps extends NextAppProps {
   emotionCache?: EmotionCache;
@@ -20,7 +22,10 @@ export const App = (props: AppProps) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <ThemeProvider>
-        <Component {...pageProps} />
+        <NotificationContextProvider>
+          <Component {...pageProps} />
+          <Notification />
+        </NotificationContextProvider>
       </ThemeProvider>
     </CacheProvider>
   );
