@@ -1,3 +1,3 @@
-import { createFetchClient } from '../utils';
+import { createFetchClient } from './createFetchClient';
 
 export const fetchClient = createFetchClient();

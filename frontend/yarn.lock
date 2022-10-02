@@ -2201,6 +2201,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/lab@npm:^5.0.0-alpha.101":
+  version: 5.0.0-alpha.101
+  resolution: "@mui/lab@npm:5.0.0-alpha.101"
+  dependencies:
+    "@babel/runtime": ^7.19.0
+    "@mui/base": 5.0.0-alpha.99
+    "@mui/system": ^5.10.7
+    "@mui/types": ^7.2.0
+    "@mui/utils": ^5.10.6
+    clsx: ^1.2.1
+    prop-types: ^15.8.1
+    react-is: ^18.2.0
+  peerDependencies:
+    "@emotion/react": ^11.5.0
+    "@emotion/styled": ^11.3.0
+    "@mui/material": ^5.0.0
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@emotion/react":
+      optional: true
+    "@emotion/styled":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: f97f9e66a87667a9b7aebdd56ff0633e702132a90cc41800ebe6f9f9ea16e8b5d271851afa0b8c072aa9b3e85149e0c9f822f0dab0c815ae4c5905d5929448a1
+  languageName: node
+  linkType: hard
+
 "@mui/material@npm:^5.0.2, @mui/material@npm:^5.10.7":
   version: 5.10.7
   resolution: "@mui/material@npm:5.10.7"
@@ -14501,6 +14531,7 @@ __metadata:
     "@emotion/server": ^11.10.0
     "@emotion/styled": ^11.10.4
     "@hookform/resolvers": ^2.9.8
+    "@mui/lab": ^5.0.0-alpha.101
     "@mui/material": ^5.10.7
     "@nrwl/cli": 14.8.2
     "@nrwl/cypress": 14.8.2

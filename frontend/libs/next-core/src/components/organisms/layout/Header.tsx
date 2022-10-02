@@ -12,10 +12,10 @@ export const Header: FC = () => {
             <Image href="/" src={logo} />
           </Grid>
           <Grid item sm={5} container gap={2} justifyContent="center">
-            <Link href="/login" color="common.white" underline="none">
+            <Link href="/ex" color="common.white" underline="none">
               Exercises
             </Link>
-            <Link href="/register" color="common.white" underline="none">
+            <Link href="/scanner/list" color="common.white" underline="none">
               Scanner
             </Link>
           </Grid>
