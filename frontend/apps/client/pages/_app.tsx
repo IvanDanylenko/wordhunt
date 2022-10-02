@@ -1,16 +1,14 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+import { App } from '@wordhunt/next-core';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+function CustomApp(props: AppProps) {
   return (
     <>
       <Head>
         <title>Welcome to client!</title>
       </Head>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
+      <App {...props} />
     </>
   );
 }
