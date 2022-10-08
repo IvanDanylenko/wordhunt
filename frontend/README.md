@@ -1,5 +1,3 @@
-
-
 # Wordhunt
 
 This project was generated using [Nx](https://nx.dev).
@@ -75,11 +73,22 @@ Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
 
 Run `nx graph` to see a diagram of the dependencies of your projects.
 
+## Problems
+
+1. My dependencies not sorted automatically
+
+Make sure you have this settings in your vscode settings.json file and you have installed Eslint extension
+
+```
+// .vscode/settings.json
+"editor.codeActionsOnSave": {
+  "source.fixAll.eslint": true
+},
+```
+
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
 
 ## ☁ Nx Cloud
 
