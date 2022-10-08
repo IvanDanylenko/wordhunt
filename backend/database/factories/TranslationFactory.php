@@ -19,6 +19,7 @@ class TranslationFactory extends Factory
     public function definition()
     {
         return [
+            'word_transcription' => fake()->word(),
             'name' => fake()->word(),
             'part_of_speech' => fake()->randomElement(PartOfSpeech::values()),
             'score' => fake()->numberBetween(0, 255),

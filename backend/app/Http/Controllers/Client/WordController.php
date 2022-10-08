@@ -19,12 +19,28 @@ class WordController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = $request->input('filter');
-        if ($filter['status']) {
+        $filter = $request->input('filter', []);
+
+        if (is_string($filter)) {
+            $filter = json_decode($filter, true);
+        }
+
+        if (isset($filter['status'])) {
             /** @var Client */
             $client = auth()->user();
-            $query = $client->words()->wherePivot('status', $filter['status']);
-        } else {
+
+            if ($filter['status'] === WordStatus::Unknown->value) {
+                $relatedWords = $client->words()->get(['id'])->toArray();
+                $relatedWordIds = array_map(function ($item) {
+                    return $item['id'];
+                }, $relatedWords);
+                $query = Word::with('translations', 'examples')->whereNotIn('id', $relatedWordIds);
+            }
+            else {
+                $query = $client->words()->wherePivot('status', $filter['status']);
+            }
+        }
+        else {
             $query = Word::with('translations', 'examples');
         }
         return WordResource::collection($query->paginate(request('per_page')));
@@ -48,9 +64,9 @@ class WordController extends Controller
         $pivot = $client->words()->wherePivot('word_id', $id)->firstOrFail()->pivot;
 
         if (
-            $pivot->status === WordStatus::Learned->value ||
-            $pivot->status === WordStatus::Skipped->value ||
-            $pivot->status === WordStatus::Paused->value
+        $pivot->status === WordStatus::Learned->value ||
+        $pivot->status === WordStatus::Skipped->value ||
+        $pivot->status === WordStatus::Paused->value
         ) {
             return response()->json(['message' => 'Word cannot increase level'], 422);
         }
@@ -58,7 +74,8 @@ class WordController extends Controller
         if ($pivot->level < 5) {
             $newLevel = $pivot->level + 1;
             $newStatus = WordStatus::InProgress->value;
-        } else {
+        }
+        else {
             $newLevel = 6;
             $newStatus = WordStatus::Learned->value;
         }

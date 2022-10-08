@@ -9,6 +9,7 @@ use App\Models\Users\Admin;
 use App\Models\Users\Client;
 use App\Models\Word;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class WordTest extends TestCase
@@ -134,5 +135,31 @@ class WordTest extends TestCase
 
         $this->assertDatabaseHas('client_word', ['word_id' => $word->id, 'status' => WordStatus::InProgress->value, 'level' => 1]);
         $response->assertOk();
+    }
+
+    public function testFiltersByUnknownStatus()
+    {
+        $attachedWord = Word::factory()->create();
+        /** @var Client */
+        $client = Client::factory()->hasAttached([$attachedWord], ['level' => 0, 'status' => WordStatus::NewWord->value])->create();
+
+        $this->actingAs($client, 'client');
+
+        /** @var Word */
+        $word = Word::factory()->create();
+
+        $this->assertDatabaseCount('words', 2);
+
+        $response = $this->getJson(route('client.words.index', ['filter' => json_encode(['status' => WordStatus::Unknown])]));
+
+        $response->assertOk();
+        $response->assertJson(function (AssertableJson $json) use ($word) {
+            $json->has('data', 1)
+                ->etc();
+            $array = $json->toArray();
+            $this->assertEquals($word->id, $array['data'][0]['id']);
+        }
+        );
+
     }
 }
