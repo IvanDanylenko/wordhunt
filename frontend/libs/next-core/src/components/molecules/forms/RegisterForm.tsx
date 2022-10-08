@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
+import { useTranslate } from '../../../hooks';
 import { fetchClient, tokenManager } from '../../../providers';
 import { Link, SubmitButton, TextInput } from '../../atoms';
 import { Form } from './Form';
-import { useTranslate } from '../../../hooks';
 
 const registerSchema = yup
   .object({

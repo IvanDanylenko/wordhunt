@@ -1,5 +1,5 @@
-import polyglotI18nProvider from 'ra-i18n-polyglot';
 import { I18nProvider, TranslationMessages } from 'react-admin';
+import polyglotI18nProvider from 'ra-i18n-polyglot';
 
 interface I18nProviderCreatorProps {
   messages: {

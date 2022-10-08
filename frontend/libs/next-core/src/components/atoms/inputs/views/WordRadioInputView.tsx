@@ -1,5 +1,5 @@
-import { Grid } from '@mui/material';
 import { FC, ReactNode } from 'react';
+import { Grid } from '@mui/material';
 import { RadioButtonCheckedIcon, RadioButtonUncheckedIcon } from '../../../../icons';
 
 export interface WordRadioInputViewProps {

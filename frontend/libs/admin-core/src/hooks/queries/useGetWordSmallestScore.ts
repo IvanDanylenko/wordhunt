@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import { fetchClient } from '../../providers';
 import { useParams } from 'react-router-dom';
+import { fetchClient } from '../../providers';
 
 export interface WordSmallestScore {
   smallest_score: number;

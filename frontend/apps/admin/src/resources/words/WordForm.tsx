@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   ArrayInput,
   SimpleForm,
@@ -7,7 +8,6 @@ import {
   useInput,
   validations,
 } from '@wordhunt/admin-core';
-import { useEffect } from 'react';
 
 const WordScoreInput = () => {
   const { data } = useGetWordSmallestScore();

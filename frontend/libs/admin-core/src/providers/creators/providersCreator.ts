@@ -1,7 +1,7 @@
-import { i18nProviderCreator } from '.';
 import { translationMessages } from '../../i18n';
 import { authProviderCreator } from './authProviderCreator';
 import { dataProviderCreator } from './dataProviderCreator';
+import { i18nProviderCreator } from '.';
 
 export const providersCreator = () => {
   return {

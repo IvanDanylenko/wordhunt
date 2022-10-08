@@ -1,5 +1,5 @@
-import { Admin, providersCreator, queryClient, RESOURCE, Resource } from '@wordhunt/admin-core';
 import { BrowserRouter } from 'react-router-dom';
+import { Admin, providersCreator, queryClient, RESOURCE, Resource } from '@wordhunt/admin-core';
 import words from './resources/words';
 
 const providers = providersCreator();

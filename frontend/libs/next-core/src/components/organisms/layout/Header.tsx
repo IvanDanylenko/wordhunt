@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { AppBar, Container, Grid } from '@mui/material';
-import logo from './logo.png';
 import { Image, Link } from '../../atoms';
+import logo from './logo.png';
 
 export const Header: FC = () => {
   return (

@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import { QueryClientProvider } from 'react-query';
+import { CacheProvider, EmotionCache } from '@emotion/react';
 import type { AppProps as NextAppProps } from 'next/app';
 import Head from 'next/head';
-import { CacheProvider, EmotionCache } from '@emotion/react';
-import { createEmotionCache } from '../theme';
-import { createQueryClient, ThemeProvider } from '../providers';
-import { NotificationContextProvider } from '../contexts';
 import { Notification } from '../components';
-import { QueryClientProvider } from 'react-query';
+import { NotificationContextProvider } from '../contexts';
+import { createQueryClient, ThemeProvider } from '../providers';
+import { createEmotionCache } from '../theme';
 
 interface AppProps extends NextAppProps {
   emotionCache?: EmotionCache;

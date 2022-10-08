@@ -1,7 +1,7 @@
 // Inspired by https://marmelab.com/blog/2020/07/02/manage-your-jwt-react-admin-authentication-in-memory.html
 
-import jwtDecode from 'jwt-decode';
 import Cookie from 'js-cookie';
+import jwtDecode from 'jwt-decode';
 import { fetchClient } from './fetchClient';
 
 const REFRESH_ENDPOINT = '/auth/refresh-token';
