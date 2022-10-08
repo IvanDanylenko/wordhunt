@@ -1,4 +1,8 @@
 export const englishTranslations = {
+  action: {
+    save_statuses: 'Save statuses',
+    add_to_exercises: 'Add to exercises',
+  },
   scanner: {
     list: 'List',
     known: 'Known',
