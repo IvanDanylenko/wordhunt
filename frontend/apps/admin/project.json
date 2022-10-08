@@ -50,7 +50,8 @@
       "options": {
         "buildTarget": "admin:build",
         "hmr": true,
-        "port": 4201
+        "port": 4201,
+        "host": "admin-wordhunt.loc"
       },
       "configurations": {
         "development": {
