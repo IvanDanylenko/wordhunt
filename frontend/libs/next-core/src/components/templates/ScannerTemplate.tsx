@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useTranslate } from '../../hooks';
 import { ScannerList } from '../organisms';
 
-const TABS = {
+const SCANNER_TABS = {
   LIST: 'list',
   KNOWN: 'known',
   UNKNOWN: 'unknown',
@@ -22,7 +22,7 @@ export const ScannerTemplate: FC = () => {
 
   return (
     <Grid item container sm={9} flexDirection={{ sm: 'column' }}>
-      <TabContext value={(router.query.scannerPage as string) || TABS.LIST}>
+      <TabContext value={(router.query.scannerPage as string) || SCANNER_TABS.LIST}>
         <TabList
           variant="scrollable"
           scrollButtons="auto"
@@ -49,7 +49,7 @@ export const ScannerTemplate: FC = () => {
                 {t('scanner.list')}
               </Typography>
             }
-            value={TABS.LIST}
+            value={SCANNER_TABS.LIST}
           />
           <Tab
             aria-label={t('scanner.known')}
@@ -63,7 +63,7 @@ export const ScannerTemplate: FC = () => {
                 {t('scanner.known')}
               </Typography>
             }
-            value={TABS.KNOWN}
+            value={SCANNER_TABS.KNOWN}
           />
           <Tab
             aria-label={t('scanner.unknown')}
@@ -77,7 +77,7 @@ export const ScannerTemplate: FC = () => {
                 {t('scanner.unknown')}
               </Typography>
             }
-            value={TABS.UNKNOWN}
+            value={SCANNER_TABS.UNKNOWN}
           />
           <Tab
             aria-label={t('scanner.clear')}
@@ -91,21 +91,21 @@ export const ScannerTemplate: FC = () => {
                 {t('scanner.clear')}
               </Typography>
             }
-            value={TABS.CLEAR}
+            value={SCANNER_TABS.CLEAR}
           />
         </TabList>
-        <TabPanel value={TABS.LIST} sx={{ width: 1, pt: { sm: 3 } }}>
+        <TabPanel value={SCANNER_TABS.LIST} sx={{ width: 1, pt: { sm: 3 } }}>
           <ScannerList />
         </TabPanel>
 
-        <TabPanel value={TABS.KNOWN} sx={{ width: 1, pt: { sm: 3 } }}>
+        <TabPanel value={SCANNER_TABS.KNOWN} sx={{ width: 1, pt: { sm: 3 } }}>
           123
         </TabPanel>
 
-        <TabPanel value={TABS.UNKNOWN} sx={{ width: 1, pt: { sm: 3 } }}>
+        <TabPanel value={SCANNER_TABS.UNKNOWN} sx={{ width: 1, pt: { sm: 3 } }}>
           44
         </TabPanel>
-        <TabPanel value={TABS.CLEAR} sx={{ width: 1, pt: { sm: 3 } }}>
+        <TabPanel value={SCANNER_TABS.CLEAR} sx={{ width: 1, pt: { sm: 3 } }}>
           55
         </TabPanel>
       </TabContext>

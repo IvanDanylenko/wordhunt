@@ -1,4 +1,5 @@
 import { Layout, RegisterTemplate } from '@wordhunt/next-core';
+import { withTranslations } from '../utils/withTranslations';
 
 export default function Register() {
   return (
@@ -7,3 +8,5 @@ export default function Register() {
     </Layout>
   );
 }
+
+export const getStaticProps = withTranslations();

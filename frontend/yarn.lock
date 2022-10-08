@@ -6399,6 +6399,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dlv@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "dlv@npm:1.1.3"
+  checksum: d7381bca22ed11933a1ccf376db7a94bee2c57aa61e490f680124fa2d1cd27e94eba641d9f45be57caab4f9a6579de0983466f620a2cd6230d7ec93312105ae7
+  languageName: node
+  linkType: hard
+
 "dns-equal@npm:^1.0.0":
   version: 1.0.0
   resolution: "dns-equal@npm:1.0.0"
@@ -10462,6 +10469,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-rosetta@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "next-rosetta@npm:2.0.2"
+  dependencies:
+    rosetta: ^1.1.0
+  peerDependencies:
+    next: ">=10.0.0"
+    react: ">=17.0.1"
+  checksum: 2672258a8d8b76a6d4af96f1777d76c89b624efb322ef3c10187e4cf8eecf6060f7899ed526b50bbc8763c6bdba6b8afb8ee60f85d263edda4929d95720dfd66
+  languageName: node
+  linkType: hard
+
 "next@npm:12.3.1":
   version: 12.3.1
   resolution: "next@npm:12.3.1"
@@ -12580,6 +12599,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rosetta@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "rosetta@npm:1.1.0"
+  dependencies:
+    dlv: ^1.1.3
+    templite: ^1.1.0
+  checksum: 3fd6afcfe91d4d2a48e141676cc1aafb2e0f255fc17f50a5c2e11e3e53b4a1bce858ac7cec45c5fa1f6a8b4c8867e29a50175bece788dd08144355cc20aa7a39
+  languageName: node
+  linkType: hard
+
 "run-parallel@npm:^1.1.9":
   version: 1.2.0
   resolution: "run-parallel@npm:1.2.0"
@@ -13551,6 +13580,13 @@ __metadata:
     mkdirp: ^1.0.3
     yallist: ^4.0.0
   checksum: a04c07bb9e2d8f46776517d4618f2406fb977a74d914ad98b264fc3db0fe8224da5bec11e5f8902c5b9bcb8ace22d95fbe3c7b36b8593b7dfc8391a25898f32f
+  languageName: node
+  linkType: hard
+
+"templite@npm:^1.1.0":
+  version: 1.2.0
+  resolution: "templite@npm:1.2.0"
+  checksum: 4c02803b99320b1fe401ee1a4c15f1699a84dca0176d5ca847d8e3b55ce2dd7796e9ccd59209252f8fceefdc6ee41c0f92843f506c1a3d8ac45aba6ed37bb157
   languageName: node
   linkType: hard
 
@@ -14569,6 +14605,7 @@ __metadata:
     js-cookie: ^3.0.1
     jwt-decode: ^3.1.2
     next: 12.3.1
+    next-rosetta: ^2.0.2
     nx: 14.8.2
     prettier: ^2.6.2
     react: 18.2.0
