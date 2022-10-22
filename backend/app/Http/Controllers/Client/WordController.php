@@ -16,6 +16,8 @@ class WordController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * 
+     * TODO: REFACTOR!!!
      */
     public function index(Request $request)
     {
@@ -35,14 +37,19 @@ class WordController extends Controller
                     return $item['id'];
                 }, $relatedWords);
                 $query = Word::with('translations', 'examples')->whereNotIn('id', $relatedWordIds);
+            } else {
+                $query = $client->words()->with('translations', 'examples')
+                    ->wherePivot('status', $filter['status']);
             }
-            else {
-                $query = $client->words()->with('translations', 'examples')->wherePivot('status', $filter['status']);
+
+            if ($filter['status'] === WordStatus::InProgress->value) {
+                $query->wherePivot('is_active', 1);
             }
-        }
-        else {
+        } else {
             $query = Word::with('translations', 'examples');
         }
+
+        $res = $query->get();
         return WordResource::collection($query->paginate(request('per_page')));
     }
 
@@ -64,9 +71,9 @@ class WordController extends Controller
         $pivot = $client->words()->wherePivot('word_id', $id)->firstOrFail()->pivot;
 
         if (
-        $pivot->status === WordStatus::Learned->value ||
-        $pivot->status === WordStatus::Skipped->value ||
-        $pivot->status === WordStatus::Paused->value
+            $pivot->status === WordStatus::Learned->value ||
+            $pivot->status === WordStatus::Skipped->value ||
+            $pivot->status === WordStatus::Paused->value
         ) {
             return response()->json(['message' => 'Word cannot increase level'], 422);
         }
@@ -74,8 +81,7 @@ class WordController extends Controller
         if ($pivot->level < 5) {
             $newLevel = $pivot->level + 1;
             $newStatus = WordStatus::InProgress->value;
-        }
-        else {
+        } else {
             $newLevel = 6;
             $newStatus = WordStatus::Learned->value;
         }
@@ -83,6 +89,7 @@ class WordController extends Controller
         $client->words()->updateExistingPivot($id, [
             'level' => $newLevel,
             'status' => $newStatus,
+            'is_active' => 0,
             'word_increased_level_at' => now(),
         ]);
 

@@ -5,8 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -21,6 +20,7 @@ return new class extends Migration
             $table->foreign('word_id')->references('id')->on('words');
             $table->tinyInteger('level')->unsigned();
             $table->enum('status', WordStatus::values());
+            $table->boolean('is_active')->default(false);
             $table->timestamp('word_increased_level_at')->nullable();
             $table->timestamps();
         });

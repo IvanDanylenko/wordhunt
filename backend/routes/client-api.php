@@ -5,14 +5,14 @@ use App\Http\Controllers\Client\WordController;
 use Illuminate\Support\Facades\Route;
 
 /*
-|--------------------------------------------------------------------------
-| Client API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
+ |--------------------------------------------------------------------------
+ | Client API Routes
+ |--------------------------------------------------------------------------
+ |
+ | Here is where you can register API routes for your application. These
+ | routes are loaded by the RouteServiceProvider within a group which
+ | is assigned the "api" middleware group. Enjoy building your API!
+ |
  */
 
 // Health check
@@ -30,10 +30,15 @@ Route::middleware(['auth:client'])->group(function () {
     Route::get('/me', [AuthController::class, 'me'])->name('me');
 
     Route::get('/words', [WordController::class, 'index'])->name('words.index');
+
     Route::get('/words/{id}', [WordController::class, 'show'])->name('words.show');
+
     Route::post('/words/{id}/increase-level', [WordController::class, 'increaseLevel'])->name('words.increaseLevel');
+
     Route::post('/words/change-status/new', [WordController::class, 'changeStatusNew'])->name('words.changeStatusNew');
+
     Route::post('/words/change-status/in-progress', [WordController::class, 'changeStatusInProgress'])->name('words.changeStatusInProgress');
+
     Route::post('/words/change-status/skipped', [WordController::class, 'changeStatusSkipped'])->name('words.changeStatusSkipped');
 });
 
