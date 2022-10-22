@@ -19,16 +19,20 @@ export const BiatlonTemplate = () => {
 
   const formRef = useRef<UseFormReturn>(null);
 
-  const { data: words, isLoading } = useGetWords('in_progress');
+  const { data: words, error, isLoading } = useGetWords('in_progress');
 
   const { mutate: increaseLevel } = useIncreaseLevelMutation();
+
+  if (error) {
+    return <Alert severity="error">{error.response?.data?.message || error.message}</Alert>;
+  }
 
   if (isLoading) {
     return <Loader />;
   }
 
   if (!words) {
-    return <Box>Empty...</Box>;
+    return <Alert severity="info">Empty...</Alert>;
   }
 
   const moveToNextWord = () => {

@@ -33,7 +33,8 @@ export const useGetWords = (statusProp?: Word['status']) => {
     }
   }
 
-  return useQuery<Word[], AxiosError>(wordKeys.list({ filter: { status } }), () =>
-    fetchWords(status),
+  return useQuery<Word[], AxiosError<{ message: string }>>(
+    wordKeys.list({ filter: { status } }),
+    () => fetchWords(status),
   );
 };
