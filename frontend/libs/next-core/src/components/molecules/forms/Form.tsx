@@ -1,5 +1,12 @@
-import { FC, ReactNode } from 'react';
-import { FieldValues, FormProvider, useForm, UseFormProps, UseFormSetError } from 'react-hook-form';
+import { ReactNode, forwardRef } from 'react';
+import {
+  FieldValues,
+  FormProvider,
+  useForm,
+  UseFormProps,
+  UseFormSetError,
+  UseFormReturn,
+} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AxiosError } from 'axios';
 import { AnyObjectSchema } from 'yup';
@@ -10,7 +17,7 @@ interface FormProps extends UseFormProps {
   children: ReactNode;
   // Used "any" to make process of specifying form values types easier
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSubmit: (data: any) => Promise<void>;
+  onSubmit?: (data: any) => Promise<void>;
   validationSchema?: AnyObjectSchema;
 }
 
@@ -29,15 +36,23 @@ function setSubmissionErrors(
   });
 }
 
-export const Form: FC<FormProps> = ({ children, onSubmit, validationSchema, ...rest }) => {
+export const Form = forwardRef<UseFormReturn, FormProps>((props, ref) => {
+  const { children, onSubmit, validationSchema, ...rest } = props;
+
   const form = useForm({
     resolver: validationSchema && yupResolver(validationSchema),
     ...rest,
   });
 
+  if (ref && typeof ref === 'object') {
+    ref.current = form;
+  }
+
   const notify = useNotify();
 
   const handleSubmit = async (values: unknown) => {
+    if (!onSubmit) return;
+
     try {
       await onSubmit(values);
     } catch (error) {
@@ -62,4 +77,4 @@ export const Form: FC<FormProps> = ({ children, onSubmit, validationSchema, ...r
       </form>
     </FormProvider>
   );
-};
+});

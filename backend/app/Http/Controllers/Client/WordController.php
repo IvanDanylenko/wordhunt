@@ -37,7 +37,7 @@ class WordController extends Controller
                 $query = Word::with('translations', 'examples')->whereNotIn('id', $relatedWordIds);
             }
             else {
-                $query = $client->words()->wherePivot('status', $filter['status']);
+                $query = $client->words()->with('translations', 'examples')->wherePivot('status', $filter['status']);
             }
         }
         else {

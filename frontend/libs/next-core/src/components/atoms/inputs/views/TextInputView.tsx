@@ -2,12 +2,12 @@ import { FC, forwardRef } from 'react';
 import { UseControllerProps } from 'react-hook-form';
 import { StandardTextFieldProps, TextField } from '@mui/material';
 
-interface TextInputProps
+export interface TextInputViewProps
   extends Omit<UseControllerProps, 'name' | 'defaultValue'>,
     StandardTextFieldProps {}
 
-export const TextInputView: FC<TextInputProps> = forwardRef((props, ref) => {
-  const { inputProps, ...rest } = props;
+export const TextInputView: FC<TextInputViewProps> = forwardRef((props, ref) => {
+  const { inputProps, sx, ...rest } = props;
 
   return (
     <TextField
@@ -22,6 +22,7 @@ export const TextInputView: FC<TextInputProps> = forwardRef((props, ref) => {
         fieldset: {
           transition: '0.3s',
         },
+        ...sx,
       }}
       fullWidth
       inputProps={{ sx: { transition: '0.3s' }, ...inputProps }}

@@ -11,23 +11,25 @@ const fetchWords = (status?: Word['status']) => {
     .then((res) => res.data.data);
 };
 
-export const useGetWords = () => {
+export const useGetWords = (statusProp?: Word['status']) => {
   const { query } = useRouter();
 
-  let status: Word['status'];
+  let status: Word['status'] = statusProp;
 
-  switch (query.scannerPage) {
-    case 'list': {
-      status = 'unknown';
-      break;
-    }
-    case 'known': {
-      status = 'skipped';
-      break;
-    }
-    case 'unknown': {
-      status = 'new';
-      break;
+  if (!statusProp) {
+    switch (query.scannerPage) {
+      case 'list': {
+        status = 'unknown';
+        break;
+      }
+      case 'known': {
+        status = 'skipped';
+        break;
+      }
+      case 'unknown': {
+        status = 'new';
+        break;
+      }
     }
   }
 

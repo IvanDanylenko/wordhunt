@@ -9,6 +9,9 @@ export const englishTranslations = {
     unknown: 'Unknown',
     clear: 'Clear',
   },
+  exercises: {
+    biatlon: 'Biatlon',
+  },
   credentials: {
     login: 'Login',
     register: 'Register',
