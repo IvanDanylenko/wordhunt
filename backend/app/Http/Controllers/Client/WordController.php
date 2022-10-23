@@ -118,7 +118,7 @@ class WordController extends Controller
         $client = auth()->user();
         $ids = $request->input('ids');
 
-        $attributes = ['status' => WordStatus::InProgress->value];
+        $attributes = ['status' => WordStatus::InProgress->value, 'is_active' => 1];
 
         foreach ($ids as $id) {
             $client->words()->updateExistingPivot($id, $attributes);

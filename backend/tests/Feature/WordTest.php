@@ -85,13 +85,15 @@ class WordTest extends TestCase
         $response = $this->postJson(route('client.words.changeStatusInProgress'), ['ids' => [$words[0]->id]]);
         $response->assertOk();
 
-        $this->assertDatabaseHas('client_word', [
-            'client_id' => $client->id,
-            'word_id' => $words[0]->id,
-            'status' => WordStatus::InProgress->value,
-            'level' => 0,
-            'word_increased_level_at' => null,
-        ]);
+        $response = $this->getJson(route('client.words.index', ['filter' => json_encode(['status' => WordStatus::InProgress->value])]));
+
+        $response->assertJson(function (AssertableJson $json) use ($words) {
+            $json->has('data', 1)
+                ->etc();
+            $array = $json->toArray();
+            $this->assertEquals($words[0]->id, $array['data'][0]['id']);
+        }
+        );
 
         $response = $this->postJson(route('client.words.changeStatusSkipped'), ['ids' => [$words[0]->id]]);
         $response->assertOk();
