@@ -43,13 +43,12 @@ class WordController extends Controller
             }
 
             if ($filter['status'] === WordStatus::InProgress->value) {
-                $query->wherePivot('is_active', 1);
+                $query->wherePivot('is_active', 1)->inRandomOrder();
             }
         } else {
             $query = Word::with('translations', 'examples');
         }
 
-        $res = $query->get();
         return WordResource::collection($query->paginate(request('per_page')));
     }
 
