@@ -78,6 +78,8 @@ export const BiatlonTemplate = () => {
 
   const firstTranslation = currentWord?.translations && currentWord.translations[0];
 
+  const firstExample = currentWord?.examples && currentWord.examples[0];
+
   if (!currentWord) {
     return <Alert severity="success">Exersice completed...</Alert>;
   }
@@ -85,7 +87,7 @@ export const BiatlonTemplate = () => {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item sm={6}>
+        <Grid item sm={6} position="relative">
           <Form ref={formRef}>
             <ChineseInput
               name={INPUT_NAME}
@@ -94,19 +96,29 @@ export const BiatlonTemplate = () => {
               autoComplete="off"
             />
           </Form>
-          <Box>
-            {isTypingMistake && (
-              <Typography color="error.main">
-                {currentWord?.name} ({firstTranslation?.word_transcription})
-              </Typography>
-            )}
-          </Box>
-          <Box>
-            {isMovedToNextLevel && (
-              <Typography color="success.main">
-                {lastPassedWord?.name} moved to next level
-              </Typography>
-            )}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 62,
+            }}
+          >
+            <Box>
+              {isTypingMistake && (
+                <Typography color="error.main">
+                  {currentWord?.name} ({firstTranslation?.word_transcription})
+                </Typography>
+              )}
+            </Box>
+            <Box>
+              {isMovedToNextLevel && (
+                <Typography color="success.main">
+                  {lastPassedWord?.name} (
+                  {lastPassedWord?.translations &&
+                    lastPassedWord.translations[0]?.word_transcription}
+                  ) moved to next level
+                </Typography>
+              )}
+            </Box>
           </Box>
         </Grid>
         <Grid item sm={6}>
@@ -116,6 +128,13 @@ export const BiatlonTemplate = () => {
           })}
         </Grid>
       </Grid>
+      {firstExample && (
+        <Box mt={4}>
+          <Typography fontWeight="bold">Example</Typography>
+          <Typography>{firstExample.name.replace(currentWord.name, '...')}</Typography>
+          <Typography>{firstExample.translation}</Typography>
+        </Box>
+      )}
       <Box mt={4}>
         <Typography>Words left: {words.length - index}</Typography>
       </Box>
