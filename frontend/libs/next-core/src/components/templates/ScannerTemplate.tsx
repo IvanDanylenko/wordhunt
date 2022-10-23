@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Grid, Typography, Tab } from '@mui/material';
+import { Typography, Tab } from '@mui/material';
 import { useRouter } from 'next/router';
 import { ScannerTabContextProvider } from '../../contexts';
 import { useTranslate } from '../../hooks';
