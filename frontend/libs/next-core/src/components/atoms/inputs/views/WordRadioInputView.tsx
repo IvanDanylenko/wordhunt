@@ -7,6 +7,7 @@ type WordRadioStatus = 'known' | 'unknown' | 'none';
 export interface WordRadioInputViewProps {
   status: WordRadioStatus;
   word?: ReactNode;
+  transcription?: string;
   onChange: (value: WordRadioStatus) => void;
 }
 
@@ -25,7 +26,7 @@ const nextStatus = {
 } as const;
 
 export const WordRadioInputView: FC<WordRadioInputViewProps> = (props) => {
-  const { status, word, onChange } = props;
+  const { status, word, transcription, onChange } = props;
 
   const Icon =
     status === 'none' ? RadioButtonUncheckedIcon : status === 'known' ? KnownIcon : UnknownIcon;
@@ -43,7 +44,9 @@ export const WordRadioInputView: FC<WordRadioInputViewProps> = (props) => {
       <Grid item display="flex">
         <Icon />
       </Grid>
-      <Grid item>{word}</Grid>
+      <Grid item>
+        {word} ({transcription})
+      </Grid>
     </Grid>
   );
 };
