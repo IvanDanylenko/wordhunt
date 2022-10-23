@@ -38,6 +38,11 @@ export const BiatlonTemplate = () => {
   const moveToNextWord = () => {
     setIndex((v) => v + 1);
     setIsTypingMistake(false);
+    setLastPassedWord(null);
+
+    if (formRef.current) {
+      formRef.current.setValue(INPUT_NAME, '');
+    }
   };
 
   const handleKeyDown: ChineseInputProps['onKeyDown'] = (e) => {
@@ -55,22 +60,16 @@ export const BiatlonTemplate = () => {
     }
     if (!currentWord?.name.startsWith(newValue)) {
       setIsTypingMistake(true);
-    } else if (currentWord?.name === newValue) {
-      if (isTypingMistake) {
-        moveToNextWord();
-      } else {
-        if (formRef.current) {
-          formRef.current.setValue(INPUT_NAME, '');
-        }
-
-        increaseLevel(currentWord?.id);
-        moveToNextWord();
-        setIsMovedToNextLevel(true);
-        setLastPassedWord(currentWord);
-        setTimeout(() => {
-          setIsMovedToNextLevel(false);
-        }, 4000);
+      if (formRef.current) {
+        formRef.current.setValue(INPUT_NAME, '');
       }
+    } else if (!isTypingMistake && currentWord?.name === newValue) {
+      increaseLevel(currentWord?.id);
+      setIsMovedToNextLevel(true);
+      setLastPassedWord(currentWord);
+      setTimeout(() => {
+        setIsMovedToNextLevel(false);
+      }, 1000);
     }
   };
 
@@ -99,6 +98,23 @@ export const BiatlonTemplate = () => {
           <Box
             sx={{
               position: 'absolute',
+              top: -12,
+            }}
+          >
+            <Typography
+              color="success.main"
+              fontSize={14}
+              sx={{
+                opacity: isMovedToNextLevel ? 1 : 0,
+                transition: (theme) => theme.transitions.create('opacity'),
+              }}
+            >
+              Word moved to next level
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              position: 'absolute',
               top: 62,
             }}
           >
@@ -110,12 +126,12 @@ export const BiatlonTemplate = () => {
               )}
             </Box>
             <Box>
-              {isMovedToNextLevel && (
+              {lastPassedWord && (
                 <Typography color="success.main">
-                  {lastPassedWord?.name} (
-                  {lastPassedWord?.translations &&
+                  {lastPassedWord.name} (
+                  {lastPassedWord.translations &&
                     lastPassedWord.translations[0]?.word_transcription}
-                  ) moved to next level
+                  )
                 </Typography>
               )}
             </Box>

@@ -123,7 +123,7 @@ export const ChineseInput = forwardRef<HTMLInputElement, ChineseInputProps>((pro
 
   return (
     <Tooltip
-      open={!!inputValue}
+      open={!!inputValue && !!field.value}
       PopperProps={{
         sx: {
           [`& .${tooltipClasses.tooltip}`]: {
