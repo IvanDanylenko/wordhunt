@@ -11,6 +11,7 @@ export const englishTranslations = {
   },
   exercises: {
     biatlon: 'Biatlon',
+    lenta: 'Lenta',
   },
   credentials: {
     login: 'Login',
