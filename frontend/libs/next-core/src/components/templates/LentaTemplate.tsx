@@ -6,7 +6,7 @@ import { Loader } from '../atoms';
 export const LentaTemplate = () => {
   const router = useRouter();
 
-  const { data: words, error, isLoading } = useGetWords('in_progress');
+  const { data: words, error, isLoading } = useGetWords({ status: 'in_progress' });
 
   if (error) {
     return <Alert severity="error">{error.response?.data?.message || error.message}</Alert>;

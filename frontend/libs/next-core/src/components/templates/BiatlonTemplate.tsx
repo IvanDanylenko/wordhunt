@@ -22,7 +22,11 @@ export const BiatlonTemplate = () => {
 
   const formRef = useRef<UseFormReturn>(null);
 
-  const { data: words, error, isLoading } = useGetWords('in_progress');
+  const {
+    data: words,
+    error,
+    isLoading,
+  } = useGetWords({ status: 'in_progress', isRandomOrder: true });
 
   const { mutate: increaseLevel } = useIncreaseLevelMutation();
 

@@ -5,18 +5,33 @@ import { fetchClient } from '../../providers/fetchClient';
 import { Word } from '../../types';
 import { wordKeys } from './queryKeys';
 
-const fetchWords = (status?: Word['status']) => {
+interface UseGetWordsParams {
+  status?: Word['status'];
+  isRandomOrder?: boolean;
+}
+
+const fetchWords = (params: UseGetWordsParams) => {
+  const { status, isRandomOrder } = params;
+
   return fetchClient
     .get(
       '/words',
       status
-        ? { params: { filter: { status }, per_page: status === 'in_progress' ? 500 : 20 } }
+        ? {
+            params: {
+              filter: { status },
+              per_page: status === 'in_progress' ? 500 : 20,
+              is_random_order: isRandomOrder ? 1 : 0,
+            },
+          }
         : undefined,
     )
     .then((res) => res.data.data);
 };
 
-export const useGetWords = (statusProp?: Word['status']) => {
+export const useGetWords = (params?: UseGetWordsParams) => {
+  const { status: statusProp, isRandomOrder } = params || {};
+
   const { query } = useRouter();
 
   let status: Word['status'] = statusProp;
@@ -40,6 +55,6 @@ export const useGetWords = (statusProp?: Word['status']) => {
 
   return useQuery<Word[], AxiosError<{ message: string }>>(
     wordKeys.list({ filter: { status } }),
-    () => fetchWords(status),
+    () => fetchWords({ status, isRandomOrder }),
   );
 };

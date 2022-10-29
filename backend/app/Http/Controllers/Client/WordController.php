@@ -23,6 +23,8 @@ class WordController extends Controller
     {
         $filter = $request->input('filter', []);
 
+        $isRandomOrder = $request->input('is_random_order');
+
         if (is_string($filter)) {
             $filter = json_decode($filter, true);
         }
@@ -43,10 +45,14 @@ class WordController extends Controller
             }
 
             if ($filter['status'] === WordStatus::InProgress->value) {
-                $query->wherePivot('is_active', 1)->inRandomOrder();
+                $query->wherePivot('is_active', 1);
             }
         } else {
             $query = Word::with('translations', 'examples');
+        }
+
+        if ($isRandomOrder) {
+            $query->inRandomOrder();
         }
 
         return WordResource::collection($query->paginate(request('per_page')));
