@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\PartOfSpeech;
 use App\Models\Word;
+use Exception;
 use Illuminate\Database\Seeder;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -25,8 +26,8 @@ class WordSeeder extends Seeder
         $sheetData = array_slice($sheetData, 1);
 
         foreach ($sheetData as $row) {
-            if (!$row[1]) {
-                // break cycle when word name is empty
+            if (!$row[1] || $row[0] > 1000) {
+                // break cycle when word name is empty or we already uploaded a 1000 words
                 break;
             }
 
@@ -44,12 +45,14 @@ class WordSeeder extends Seeder
                 'score' => 0,
             ]);
 
-            if ($row[4]) {
+            if ($row[4] && $row[6]) {
                 $word->examples()->create([
                     'name' => $row[4],
-                    'translation' => $row[5],
+                    'transcription' => $row[5],
+                    'translation' => $row[6],
                     'score' => 0,
                 ]);
+
             }
         }
     }
