@@ -1,6 +1,7 @@
 export interface Example {
   id: string;
   name: string;
+  transcription?: string;
   translation: string;
 }
 
