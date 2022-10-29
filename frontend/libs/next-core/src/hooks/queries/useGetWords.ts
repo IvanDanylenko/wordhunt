@@ -54,7 +54,8 @@ export const useGetWords = (params?: UseGetWordsParams) => {
   }
 
   return useQuery<Word[], AxiosError<{ message: string }>>(
-    wordKeys.list({ filter: { status } }),
+    wordKeys.list({ filter: { status }, isRandomOrder }),
     () => fetchWords({ status, isRandomOrder }),
+    { staleTime: isRandomOrder ? Infinity : 30000 },
   );
 };

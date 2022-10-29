@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+import { useQueryClient } from 'react-query';
 import { Box, Typography, Grid, Alert, Button } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useGetWords, useIncreaseLevelMutation } from '../../hooks';
+import { useGetWords, useIncreaseLevelMutation, wordKeys } from '../../hooks';
 import { Word } from '../../types';
 import { ChineseInput, ChineseInputProps, Loader } from '../atoms';
 import { Form } from '../molecules';
@@ -11,6 +12,8 @@ const INPUT_NAME = 'chinese';
 
 export const BiatlonTemplate = () => {
   const router = useRouter();
+
+  const queryClient = useQueryClient();
 
   const [index, setIndex] = useState(0);
 
@@ -25,7 +28,7 @@ export const BiatlonTemplate = () => {
   const {
     data: words,
     error,
-    isLoading,
+    isFetching,
   } = useGetWords({ status: 'in_progress', isRandomOrder: true });
 
   const { mutate: increaseLevel } = useIncreaseLevelMutation();
@@ -83,11 +86,19 @@ export const BiatlonTemplate = () => {
     }
   }, [words, currentWord, router]);
 
+  useEffect(() => {
+    return () => {
+      // Invalidate words queries when we leave exercise
+      queryClient.invalidateQueries(wordKeys.lists());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   if (error) {
     return <Alert severity="error">{error.response?.data?.message || error.message}</Alert>;
   }
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loader />;
   }
 
