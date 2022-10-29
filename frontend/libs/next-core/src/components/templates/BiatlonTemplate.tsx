@@ -89,7 +89,9 @@ export const BiatlonTemplate = () => {
   useEffect(() => {
     return () => {
       // Invalidate words queries when we leave exercise
-      queryClient.invalidateQueries(wordKeys.lists());
+      const key = wordKeys.list({ filter: { status: 'in_progress' }, isRandomOrder: true });
+
+      queryClient.removeQueries(key);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -175,7 +177,7 @@ export const BiatlonTemplate = () => {
         <Grid item sm={6}>
           <Typography fontWeight="bold">Translations</Typography>
           {currentWord?.translations?.map((translation) => {
-            return <Typography>{translation.name}</Typography>;
+            return <Typography key={translation.id}>{translation.name}</Typography>;
           })}
         </Grid>
       </Grid>
