@@ -14604,6 +14604,7 @@ __metadata:
     jest-environment-jsdom: 28.1.1
     js-cookie: ^3.0.1
     jwt-decode: ^3.1.2
+    lodash: ^4.17.21
     next: 12.3.1
     next-rosetta: ^2.0.2
     nx: 14.8.2

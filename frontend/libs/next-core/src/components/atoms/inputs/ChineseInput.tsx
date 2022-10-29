@@ -11,6 +11,7 @@ import {
   tooltipClasses,
   StandardTextFieldProps,
 } from '@mui/material';
+import debounce from 'lodash/debounce';
 import { useGetChineseSuggestions } from '../../../hooks';
 import { TextInputView, TextInputViewProps } from './views/TextInputView';
 
@@ -41,12 +42,14 @@ export const ChineseInput = forwardRef<HTMLInputElement, ChineseInputProps>((pro
     ...rest,
   });
 
-  const handleInputChange = (value: string) => {
-    const formattedValue = value.replace(/[^a-z\s]/gi, '');
-    const latestWord = formattedValue.split(' ').at(-1);
+  const handleInputChange = useMemo(() => {
+    return debounce((value: string) => {
+      const formattedValue = value.replace(/[^a-z\s]/gi, '');
+      const latestWord = formattedValue.split(' ').at(-1);
 
-    setInputValue(latestWord || '');
-  };
+      setInputValue(latestWord || '');
+    }, 200);
+  }, []);
 
   const handleKeyDown: TextInputViewProps['onKeyDown'] = (e) => {
     if (onKeyDown) {
