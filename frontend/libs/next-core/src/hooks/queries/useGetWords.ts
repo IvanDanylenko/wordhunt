@@ -10,7 +10,7 @@ const fetchWords = (status?: Word['status']) => {
     .get(
       '/words',
       status
-        ? { params: { filter: { status }, per_page: status === 'in_progress' ? 500 : 50 } }
+        ? { params: { filter: { status }, per_page: status === 'in_progress' ? 500 : 20 } }
         : undefined,
     )
     .then((res) => res.data.data);
