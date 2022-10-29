@@ -196,6 +196,29 @@ class WordTest extends TestCase
                 ->etc();
         }
         );
+    }
+    public function test_words_return_to_exercises()
+    {
+        $word = Word::factory()->create();
+        /** @var Client */
+        $client = Client::factory()->hasAttached([$word], [
+            'level' => 1,
+            'status' => WordStatus::InProgress->value,
+            'is_active' => 0,
+            'word_increased_level_at' => now()->subDays(10)
+        ])->create();
 
+        $this->actingAs($client, 'client');
+
+        $response = $this->postJson(route('client.words.returnWordsToExercises'));
+        $response->assertOk();
+
+        $response = $this->getJson(route('client.words.index', ['filter' => json_encode(['status' => WordStatus::InProgress->value])]));
+
+        $response->assertJson(function (AssertableJson $json) {
+            $json->has('data', 1)
+                ->etc();
+        }
+        );
     }
 }

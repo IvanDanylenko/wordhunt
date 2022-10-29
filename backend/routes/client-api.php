@@ -31,6 +31,8 @@ Route::middleware(['auth:client'])->group(function () {
 
     Route::get('/words', [WordController::class, 'index'])->name('words.index');
 
+    Route::post('/words/return-words-to-exercises', [WordController::class, 'returnWordsToExercises'])->name('words.returnWordsToExercises');
+
     Route::get('/words/{id}', [WordController::class, 'show'])->name('words.show');
 
     Route::post('/words/{id}/increase-level', [WordController::class, 'increaseLevel'])->name('words.increaseLevel');

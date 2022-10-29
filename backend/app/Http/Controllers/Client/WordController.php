@@ -141,4 +141,34 @@ class WordController extends Controller
 
         return ['status' => true];
     }
+
+    public function returnWordsToExercises()
+    {
+        /** @var Client */
+        $client = auth()->user();
+
+        $intervals = [
+            '1' => now()->subDay(),
+            '2' => now()->subDays(3),
+            '3' => now()->subDays(7),
+            '4' => now()->subDays(21),
+            '5' => now()->subDays(40),
+        ];
+
+        foreach ($intervals as $level => $time) {
+            // Get all words that match conditions
+            $words = $client->words()
+                ->wherePivot('is_active', 0)
+                ->wherePivot('level', $level)
+                ->wherePivot('word_increased_level_at', '<', $time)
+                ->get();
+
+            // Make words active
+            foreach ($words as $word) {
+                $client->words()->updateExistingPivot($word->id, ['is_active' => 1]);
+            }
+        }
+
+        return ['status' => true];
+    }
 }
