@@ -22,3 +22,13 @@ export interface Word {
   translations?: Translation[];
   examples?: Example[];
 }
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  word_statistics?: {
+    level: number;
+    count: number;
+  }[];
+}

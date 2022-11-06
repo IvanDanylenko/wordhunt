@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography, Grid } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Grid,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from '@mui/material';
 import { useRouter } from 'next/router';
-import { useReturnWordsToExercisesMutation, useTranslate } from '../../hooks';
+import { useGetUser, useReturnWordsToExercisesMutation, useTranslate } from '../../hooks';
 import { fetchClient } from '../../providers';
 import { Button } from '../atoms';
 
@@ -13,6 +22,8 @@ export const ExercisesTemplate = () => {
   const router = useRouter();
 
   const { mutate: returnWords, isLoading } = useReturnWordsToExercisesMutation();
+
+  const { data: user } = useGetUser();
 
   useEffect(() => {
     fetchClient
@@ -64,6 +75,35 @@ export const ExercisesTemplate = () => {
           (Currently you can return {returnCount} words)
         </Typography>
       </Grid>
+      {user?.word_statistics && (
+        <Box mt={4}>
+          <Typography fontWeight="bold">Statistics</Typography>
+          <Table sx={{ maxWidth: 300 }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Level</TableCell>
+                <TableCell>Count</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {user.word_statistics.map((item) => {
+                return (
+                  <TableRow key={item.level}>
+                    <TableCell>{item.level}</TableCell>
+                    <TableCell>{item.count}</TableCell>
+                  </TableRow>
+                );
+              })}
+              <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell>Total:</TableCell>
+                <TableCell>
+                  {user.word_statistics.reduce((res, item) => res + item.count, 0)}
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </Box>
+      )}
     </Box>
   );
 };

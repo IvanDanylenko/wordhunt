@@ -28,42 +28,42 @@ class Client extends User
 
     public function getWordStatisticsAttribute()
     {
-        $level0 = $this->words()->wherePivot('level', 0)->get();
-        $level1 = $this->words()->wherePivot('level', 1)->get();
-        $level2 = $this->words()->wherePivot('level', 2)->get();
-        $level3 = $this->words()->wherePivot('level', 3)->get();
-        $level4 = $this->words()->wherePivot('level', 4)->get();
-        $level5 = $this->words()->wherePivot('level', 5)->get();
-        $level6 = $this->words()->wherePivot('level', 6)->get();
+        $level0 = $this->words()->wherePivot('level', 0)->wherePivot('status', 'in_progress')->count();
+        $level1 = $this->words()->wherePivot('level', 1)->wherePivot('status', 'in_progress')->count();
+        $level2 = $this->words()->wherePivot('level', 2)->wherePivot('status', 'in_progress')->count();
+        $level3 = $this->words()->wherePivot('level', 3)->wherePivot('status', 'in_progress')->count();
+        $level4 = $this->words()->wherePivot('level', 4)->wherePivot('status', 'in_progress')->count();
+        $level5 = $this->words()->wherePivot('level', 5)->wherePivot('status', 'in_progress')->count();
+        $level6 = $this->words()->wherePivot('level', 6)->wherePivot('status', 'learned')->count();
 
         return [
             [
                 'level' => 0,
-                'count' => count($level0),
+                'count' => $level0,
             ],
             [
                 'level' => 1,
-                'count' => count($level1),
+                'count' => $level1,
             ],
             [
                 'level' => 2,
-                'count' => count($level2),
+                'count' => $level2,
             ],
             [
                 'level' => 3,
-                'count' => count($level3),
+                'count' => $level3,
             ],
             [
                 'level' => 4,
-                'count' => count($level4),
+                'count' => $level4,
             ],
             [
                 'level' => 5,
-                'count' => count($level5),
+                'count' => $level5,
             ],
             [
                 'level' => 6,
-                'count' => count($level6),
+                'count' => $level6,
             ],
         ];
     }
