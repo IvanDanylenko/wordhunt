@@ -17,6 +17,7 @@ class ExampleResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'transcription' => $this->transcription,
             'translation' => $this->translation,
         ];
     }

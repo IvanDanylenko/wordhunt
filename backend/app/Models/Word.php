@@ -9,7 +9,6 @@ class Word extends Model
 {
     protected $fillable = [
         'name',
-        'pinin',
         'score',
     ];
 

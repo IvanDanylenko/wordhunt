@@ -27,18 +27,18 @@ class StoreWordRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:100', 'unique:words'],
-            'pinin' => ['required', 'string', 'max:100'],
             'score' => ['nullable', 'numeric'],
             'translations' => ['required', 'array'],
+            'translations.*.word_transcription' => ['required', 'string', 'max:100'],
             'translations.*.name' => ['required', 'string', 'max:255'],
             'translations.*.part_of_speech' => ['required', new Enum(PartOfSpeech::class)],
-            'translations.*.score' => ['nullable'],
+            'translations.*.score' => ['required', 'numeric'],
             'translations.*.description' => ['nullable', 'string', 'max:255'],
             'translations.*.tag' => ['nullable', 'string', 'max:255'],
             'examples' => ['array'],
             'examples.*.name' => ['required', 'string', 'max:1000'],
             'examples.*.translation' => ['required', 'string', 'max:1000'],
-            'examples.*.score' => ['nullable', 'numeric'],
+            'examples.*.score' => ['required', 'numeric'],
         ];
     }
 }

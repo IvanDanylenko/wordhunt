@@ -8,6 +8,7 @@ class Translation extends Model
 {
     protected $fillable = [
         'name',
+        'word_transcription',
         'part_of_speech',
         'score',
         'description',

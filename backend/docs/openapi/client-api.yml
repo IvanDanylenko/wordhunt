@@ -21,7 +21,7 @@ paths:
     get:
       summary: 'List of words'
       parameters:
-        - name: status
+        - name: filter[status]
           in: query
           description: Filter by word status (new | paused | in_progress | learned | skipped)
           schema:

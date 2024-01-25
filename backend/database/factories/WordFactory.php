@@ -18,7 +18,6 @@ class WordFactory extends Factory
     {
         return [
             'name' => fake()->unique()->word(),
-            'pinin' => fake()->word(),
             'score' => fake()->numberBetween(0, 255),
         ];
     }

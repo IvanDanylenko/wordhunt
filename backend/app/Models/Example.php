@@ -8,6 +8,7 @@ class Example extends Model
 {
     protected $fillable = [
         'name',
+        'transcription',
         'translation',
         'score',
     ];
